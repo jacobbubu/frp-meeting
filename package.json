@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "baconjs": "^0.7.42",
+    "chalk": "^0.5.1"
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    </head>
+    <body>
+        <a id='plus' href='#'>Plus</a>
+        <a id='minus' href='#'>Minus</a>
+        <h2 id='total'>Total</h2>
+
+        <script type="text/coffeescript">
+            plus = $('#plus').asEventStream('click').map -> 1
+            minus = $('#minus').asEventStream('click').map -> -1
+
+            total = Bacon.mergeAll(plus, minus).scan 0, (a, b) -> a + b
+            total.assign $('#total'), 'text'
+        </script>
+
+        <script src="../bower_components/coffee-script/extras/coffee-script.js"></script>
+        <script src='../bower_components/jquery/dist/jquery.js'></script>
+        <script src="../bower_components/bacon/dist/Bacon.js"></script>
+    </body>
+</html>

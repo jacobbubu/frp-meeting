@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    </head>
+    <body>
+        <a href='#' class='this'>BUTTON</a>
+        <h2>Click the button, please.</h2>
+        <h3>No Click</h3>
+
+        <script type="text/coffeescript">
+            clicked = $('.this').asEventStream 'click'
+
+            clicked.onValue ->
+                $('h3').text "You clicked"
+
+            clickCount = clicked.bufferWithTimeOrCount(300, 5).map (list) ->
+                list.length
+
+            multiClicked = clickCount.filter (count) ->
+                count >= 2
+
+            singleClicked = clickCount.filter (count) ->
+                count < 2
+
+            multiClicked.onValue (count) ->
+                $('h2').text "#{count} clicked"
+        </script>
+
+        <script src="../bower_components/coffee-script/extras/coffee-script.js"></script>
+        <script src='../bower_components/jquery/dist/jquery.js'></script>
+        <script src="../bower_components/bacon/dist/Bacon.js"></script>
+    </body>
+</html>
